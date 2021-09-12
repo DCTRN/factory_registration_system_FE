@@ -1,0 +1,7 @@
+{
+  "name": "registration-system",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
