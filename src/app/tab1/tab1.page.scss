@@ -1,0 +1,20 @@
+.list-container {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  justify-content: center;
+}
+.list-header {
+  font-size: 2rem;
+}
+
+.list-item {
+  opacity: 0.8;
+  cursor: pointer;
+  transition: all .2s;
+}
+.list-item:hover {
+  opacity: 1;
+  cursor: pointer;
+  font-size: 150%;
+}

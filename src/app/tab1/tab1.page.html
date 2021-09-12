@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Tab 1
-    </ion-title>
+    <ion-title> Tab 1 </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -13,5 +11,26 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <!-- List of Text Items -->
+  <ion-list class="list-container">
+    <ion-list-header class="list-header"> Machine 1 </ion-list-header>
+    <ion-item class="list-item">
+      <ion-label>Pokémon Yellow</ion-label>
+    </ion-item>
+    <ion-item class="list-item">
+      <ion-label>Mega Man X</ion-label>
+    </ion-item>
+    <ion-item class="list-item">
+      <ion-label>The Legend of Zelda</ion-label>
+    </ion-item>
+    <ion-list-header class="list-header"> Machine 2 </ion-list-header>
+    <ion-item class="list-item">
+      <ion-label>Pac-Man</ion-label>
+    </ion-item>
+    <ion-item class="list-item">
+      <ion-label>Super Mario World</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <!-- <app-explore-container name="Tab 1 page"></app-explore-container> -->
 </ion-content>
