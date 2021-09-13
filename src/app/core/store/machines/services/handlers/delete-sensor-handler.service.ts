@@ -33,7 +33,7 @@ export class DeleteSensorHandlerService implements EffectHandler {
   }
 
   private createSuccessAction(action: { sensorId: number } & Action): Action {
-    this.notificationService.success(this.errorMassage);
+    this.notificationService.success(this.successMessage);
     return MachinesActions.DELETE_SENSOR_RECORD_SUCCESS(action);
   }
 

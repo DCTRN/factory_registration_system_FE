@@ -1,4 +1,11 @@
+.content {
+  height: 100%;
+  width: 100%;
+}
+
 .list-container {
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-flow: column wrap;
   align-items: center;
@@ -11,10 +18,14 @@
 .list-item {
   opacity: 0.8;
   cursor: pointer;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 .list-item:hover {
   opacity: 1;
   cursor: pointer;
   font-size: 150%;
+}
+
+.back-fab {
+  margin-bottom: 2rem;
 }

@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <ion-item>
     <ion-label position="floating">value</ion-label>
     <ion-input
@@ -46,4 +46,15 @@
     expand="full"
     >Add Sensor</ion-button
   >
+  <ion-fab
+    class="back-fab"
+    vertical="bottom"
+    horizontal="end"
+    slot="fixed"
+    (click)="onGoBackClick()"
+  >
+    <ion-fab-button>
+      <ion-icon name="arrow-back-circle"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </div>

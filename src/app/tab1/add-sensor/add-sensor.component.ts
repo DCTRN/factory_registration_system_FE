@@ -43,6 +43,10 @@ export class AddSensorComponent implements OnInit, OnDestroy {
     this.descriptionFormControl.reset();
   }
 
+  public onGoBackClick(): void {
+    this.machinesService.updateView(MachineViews.LIST);
+  }
+
   private subscribeToDescriptionFormChanges(): void {
     this.subscriptions.add(
       this.descriptionFormControl.valueChanges.subscribe(

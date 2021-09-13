@@ -3,22 +3,36 @@
     <ion-title> Tab 1 </ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-content [fullscreen]="true">
+<ion-content class="content" [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
   </ion-header>
-  <app-add-sensor></app-add-sensor>
-
-  <ion-list *ngIf="view === machineViews.LIST">
+  <ion-list class="list-container" *ngIf="view === machineViews.LIST">
     <ng-container *ngIf="!machines.length">
       <ion-title> There is no machines. </ion-title>
     </ng-container>
     <ng-container *ngFor="let machine of machines;">
       <ion-list-header class="list-header"> {{machine.name}} </ion-list-header>
-      <ng-container *ngFor="let sensor of machine.sensors;"> </ng-container>
+      <ng-container *ngFor="let sensor of machine.sensors;">
+        <ion-label>sensor.value</ion-label>
+        <ion-label>sensor.description</ion-label>
+        <ion-button color="success" size="small" (click)="addSensor(machine)"
+          >Modify</ion-button
+        >
+        <ion-button color="warning" size="small" (click)="modifySensor(sensor)"
+          >Modify</ion-button
+        >
+        <ion-button
+          color="danger"
+          size="small"
+          (click)="deleteSensor(sensor.id)"
+          >Delete</ion-button
+        >
+      </ng-container>
     </ng-container>
   </ion-list>
+  <app-add-sensor *ngIf="view === machineViews.ADD"></app-add-sensor>
+  <app-update-sensor *ngIf="view === machineViews.UPDATE"></app-update-sensor>
 </ion-content>

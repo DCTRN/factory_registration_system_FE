@@ -2,6 +2,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
+import { MachinesActions } from '../core/store/machines/machines.actions';
 import {
   selectAllMachines,
   selectCurrentlyDisplayedSensor,
@@ -31,24 +32,60 @@ export class Tab1Page implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.subscrptions.add(
-      this.machinesService
-        .getView()
-        .subscribe((view: MachineViews) => (this.view = view))
-    );
-    this.subscrptions.add(
-      this.store
-        .select(selectAllMachines)
-        .subscribe((machines: Array<Machine>) => (this.machines = machines))
-    );
+    this.subscribeToView();
+    this.subscribeToMachines();
+    this.subscribeToCurrentSensor();
+  }
 
+  public ngOnDestroy(): void {
+    this.subscrptions.unsubscribe();
+  }
+
+  public onAddSensorClick(): void {
+    this.machinesService.updateView(MachineViews.ADD);
+  }
+
+  public onGoBackClick(): void {
+    this.machinesService.updateView(MachineViews.LIST);
+  }
+
+  public addSensor(machine: Machine): void {
+    this.machinesService.updateView(MachineViews.ADD);
+    this.machinesService.setCurrentMachine(machine);
+  }
+
+  public modifySensor(sensor: Sensor): void {
+    this.store.dispatch(
+      MachinesActions.UPDATE_CURRENTLY_DISPLAYED_SENSOR({ sensor })
+    );
+    this.machinesService.updateView(MachineViews.UPDATE);
+  }
+
+  public deleteSensor(sensorId: number): void {
+    this.store.dispatch(MachinesActions.DELETE_SENSOR_RECORD({ sensorId }));
+  }
+
+  private subscribeToCurrentSensor() {
     this.subscrptions.add(
       this.store
         .select(selectCurrentlyDisplayedSensor)
         .subscribe((sensor: Sensor) => (this.currentlyDisplayedSensor = sensor))
     );
   }
-  public ngOnDestroy(): void {
-    this.subscrptions.unsubscribe();
+
+  private subscribeToMachines() {
+    this.subscrptions.add(
+      this.store
+        .select(selectAllMachines)
+        .subscribe((machines: Array<Machine>) => (this.machines = machines))
+    );
+  }
+
+  private subscribeToView(): void {
+    this.subscrptions.add(
+      this.machinesService
+        .getView()
+        .subscribe((view: MachineViews) => (this.view = view))
+    );
   }
 }

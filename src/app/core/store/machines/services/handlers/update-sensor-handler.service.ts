@@ -12,7 +12,8 @@ import { MachinesActions } from '../../machines.actions';
   providedIn: 'root',
 })
 export class UpdateSensorHandlerService implements EffectHandler {
-  private readonly errorMessage = 'Failed to update product';
+  private readonly successMessage = 'Successfuly updated sensor';
+  private readonly errorMessage = 'Failed to update sensor';
 
   constructor(
     private machinesApiService: MachinesApiService,
