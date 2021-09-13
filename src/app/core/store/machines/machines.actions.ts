@@ -41,40 +41,44 @@ export const clearCurrentlyDisplayedSensor = createAction(
 
 export const getMachines = createAction(getMachinesType);
 export const getMachinesSuccess = createAction(
-  getMachinesType,
+  getMachinesSuccessType,
   props<{ machines: Array<Machine> }>()
 );
-export const getMachinesError = createAction(getMachinesType);
+export const getMachinesError = createAction(getMachinesErrorType);
 
 export const addSensorRecord = createAction(
   addSensorRecordType,
   props<{ sensor: Sensor; machineId: number }>()
 );
 export const addSensorRecordSuccess = createAction(
-  addSensorRecordType,
+  addSensorRecordSuccessType,
   props<{ sensor: Sensor; machineId: number }>()
 );
-export const addSensorRecordError = createAction(addSensorRecordType);
+export const addSensorRecordError = createAction(addSensorRecordErrorType);
 
 export const updateSensorRecord = createAction(
   updateSensorRecordType,
   props<{ sensor: Partial<Sensor> }>()
 );
 export const updateSensorRecordSuccess = createAction(
-  updateSensorRecordType,
+  updateSensorRecordSuccessType,
   props<{ sensor: Sensor }>()
 );
-export const updateSensorRecordError = createAction(updateSensorRecordType);
+export const updateSensorRecordError = createAction(
+  updateSensorRecordErrorType
+);
 
 export const deleteSensorRecord = createAction(
   deleteSensorRecordType,
   props<{ sensorId: number }>()
 );
 export const deleteSensorRecordSuccess = createAction(
-  deleteSensorRecordType,
+  deleteSensorRecordSuccessType,
   props<{ sensorId: number }>()
 );
-export const deleteSensorRecordError = createAction(deleteSensorRecordType);
+export const deleteSensorRecordError = createAction(
+  deleteSensorRecordErrorType
+);
 
 export const MachinesTypes = {
   UPDATE_CURRENTLY_DISPLAYED_SENSOR: updatecurrentlyDisplayedSensorType,

@@ -1,14 +1,19 @@
-// import { createFeatureSelector, createSelector } from '@ngrx/store';
-// import { AppState } from 'src/app/reducers';
-// import { ReportTab } from './machines.reducer';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { AppState } from 'src/app/reducers';
+import { Machines } from './machines.reducer';
 
-// export const reportTabKey = 'reportTab';
+export const machinesKey = 'machines';
 
-// export const selectReportTabState = createFeatureSelector<AppState, ReportTab>(
-//   reportTabKey
-// );
+export const selectMachinesState = createFeatureSelector<AppState, Machines>(
+  machinesKey
+);
 
-// export const selectSelectedChartType = createSelector(
-//   selectReportTabState,
-//   (state: ReportTab) => {}
-// );
+export const selectCurrentlyDisplayedSensor = createSelector(
+  selectMachinesState,
+  (state: Machines) => state.currentlyDisplayedSensor
+);
+
+export const selectAllMachines = createSelector(
+  selectMachinesState,
+  (state: Machines) => state.machines
+);

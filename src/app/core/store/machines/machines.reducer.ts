@@ -41,6 +41,7 @@ export const _machinesReducer = createReducer(
   on(MachinesActions.ADD_SENSOR_RECORD, (state) => cloneDeep(state)),
   on(MachinesActions.ADD_SENSOR_RECORD_SUCCESS, (state, action) => {
     // for current implementation there is always machine for given sensor
+    console.error('Error with add success');
     const machine: Machine = cloneDeep(
       state.machines.find((m: Machine) => m.id === action.machineId)
     );
