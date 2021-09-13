@@ -1,77 +1,44 @@
 import { Injectable } from '@angular/core';
-import { UserProductsApiService } from '@api/user-products/user-products-api.service';
-import { UserProductDeletion } from '@core/models/user-products';
-import { NotificationService } from '@core/notifications/service/notification.service';
-import { EffectHandler } from '@core/stores/models/effect-handler.interface';
-import { User } from '@core/stores/user/user.model';
-import { Action, select, Store } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, take } from 'rxjs/operators';
-import { AppState } from 'src/app/reducers';
-import { UserProductsAction } from '../../user-products.actions';
+import { catchError, map } from 'rxjs/operators';
+import { MachinesApiService } from 'src/app/api/machines/machines-api.service';
+import { NotificationService } from 'src/app/core/notifications/service/notification.service';
+import { EffectHandler } from 'src/app/itf/effect-handler.interface';
+import { MachinesActions } from '../../machines.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DeleteSensorHandlerService implements EffectHandler {
-  private readonly errorMassage = 'Failed to delete product';
+  private readonly successMessage = 'Successfully deleted sensor';
+  private readonly errorMassage = 'Failed to delete sensor';
 
   constructor(
-    private userProductsApiService: UserProductsApiService,
-    private notificationService: NotificationService,
-    private store: Store<AppState>
+    private machinesApiService: MachinesApiService,
+    private notificationService: NotificationService
   ) {}
 
-  public handle(
-    action: {
-      userProductDeletion: Omit<UserProductDeletion, 'userId'>;
-    } & Action
-  ): Observable<Action> {
-    return this.store
-      .pipe(select('user'), take(1))
-      .pipe(
-        switchMap((user: User) => this.deleteUserProductRequest(user, action))
-      );
+  public handle(action: { sensorId: number } & Action): Observable<Action> {
+    return this.deleteUserProductRequest(action);
   }
 
   private deleteUserProductRequest(
-    user: User,
-    action: {
-      userProductDeletion: Omit<UserProductDeletion, 'userId'>;
-    } & Action
+    action: { sensorId: number } & Action
   ): Observable<Action> {
-    return this.userProductsApiService
-      .deleteUserProduct(this.createProductDeletion(user, action))
-      .pipe(
-        map(() => this.createSuccessAction(action)),
-        catchError(() => this.errorHandler())
-      );
+    return this.machinesApiService.deleteSensor(action.sensorId).pipe(
+      map(() => this.createSuccessAction(action)),
+      catchError(() => this.errorHandler())
+    );
   }
 
-  private createProductDeletion(
-    user: User,
-    action: {
-      userProductDeletion: Omit<UserProductDeletion, 'userId'>;
-    } & Action
-  ): UserProductDeletion {
-    return {
-      userId: user.id,
-      userProductId: action.userProductDeletion.userProductId,
-    };
-  }
-
-  private createSuccessAction(
-    action: {
-      userProductDeletion: Omit<UserProductDeletion, 'userId'>;
-    } & Action
-  ): Action {
-    return UserProductsAction.DELETE_USER_PRODUCT_REQUEST_SUCCESS({
-      id: action.userProductDeletion.userProductId,
-    });
+  private createSuccessAction(action: { sensorId: number } & Action): Action {
+    this.notificationService.success(this.errorMassage);
+    return MachinesActions.DELETE_SENSOR_RECORD_SUCCESS(action);
   }
 
   private errorHandler(): Observable<Action> {
     this.notificationService.error(this.errorMassage);
-    return of(UserProductsAction.DELETE_USER_PRODUCT_REQUEST_ERROR());
+    return of(MachinesActions.DELETE_SENSOR_RECORD_ERROR());
   }
 }

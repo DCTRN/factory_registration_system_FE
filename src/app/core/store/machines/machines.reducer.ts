@@ -29,9 +29,12 @@ export const _machinesReducer = createReducer(
     currentlyDisplayedSensor: undefined,
   })),
 
-    // GET_MACHINE
+  // GET_MACHINE
   on(MachinesActions.GET_MACHINES, (state) => cloneDeep(state)),
-  on(MachinesActions.GET_MACHINES_SUCCESS, (state, action) => action.machines),
+  on(MachinesActions.GET_MACHINES_SUCCESS, (state, action) => ({
+    ...cloneDeep(state),
+    machines: action.machines,
+  })),
   on(MachinesActions.GET_MACHINES_SUCCESS, (state) => cloneDeep(state)),
 
   // ADD_SENSOR_RECORD

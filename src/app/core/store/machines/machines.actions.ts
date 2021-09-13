@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Action, createAction, props } from '@ngrx/store';
 import { ErrorFormat } from 'src/app/itf/error-format.model';
+import { Machine } from 'src/app/itf/machine.model';
 import { Sensor } from 'src/app/itf/sensor.model';
 import { Machines } from './machines.reducer';
 
@@ -41,12 +42,9 @@ export const clearCurrentlyDisplayedSensor = createAction(
 export const getMachines = createAction(getMachinesType);
 export const getMachinesSuccess = createAction(
   getMachinesType,
-  props<{ machines: Machines }>()
+  props<{ machines: Array<Machine> }>()
 );
-export const getMachinesError = createAction(
-  getMachinesType,
-  props<{ error: ErrorFormat }>()
-);
+export const getMachinesError = createAction(getMachinesType);
 
 export const addSensorRecord = createAction(
   addSensorRecordType,
@@ -56,10 +54,7 @@ export const addSensorRecordSuccess = createAction(
   addSensorRecordType,
   props<{ sensor: Sensor; machineId: number }>()
 );
-export const addSensorRecordError = createAction(
-  addSensorRecordType,
-  props<{ error: ErrorFormat }>()
-);
+export const addSensorRecordError = createAction(addSensorRecordType);
 
 export const updateSensorRecord = createAction(
   updateSensorRecordType,
@@ -69,10 +64,7 @@ export const updateSensorRecordSuccess = createAction(
   updateSensorRecordType,
   props<{ sensor: Sensor }>()
 );
-export const updateSensorRecordError = createAction(
-  updateSensorRecordType,
-  props<{ error: ErrorFormat }>()
-);
+export const updateSensorRecordError = createAction(updateSensorRecordType);
 
 export const deleteSensorRecord = createAction(
   deleteSensorRecordType,
@@ -82,10 +74,7 @@ export const deleteSensorRecordSuccess = createAction(
   deleteSensorRecordType,
   props<{ sensorId: number }>()
 );
-export const deleteSensorRecordError = createAction(
-  deleteSensorRecordType,
-  props<{ error: ErrorFormat }>()
-);
+export const deleteSensorRecordError = createAction(deleteSensorRecordType);
 
 export const MachinesTypes = {
   UPDATE_CURRENTLY_DISPLAYED_SENSOR: updatecurrentlyDisplayedSensorType,

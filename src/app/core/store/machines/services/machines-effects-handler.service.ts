@@ -1,27 +1,26 @@
 import { Injectable, Injector, Type } from '@angular/core';
-import { InternalErrorHandlerService } from '@core/stores/common/internal-error-handler.service';
-import { EffectFactory } from '@core/stores/models/effect-factory.interface';
-import { EffectHandler } from '@core/stores/models/effect-handler.interface';
 import { TypedAction } from '@ngrx/store/src/models';
-import { UserProductsActionType } from '../user-products.actions';
+import { EffectFactory } from 'src/app/itf/effect-factory.interface';
+import { EffectHandler } from 'src/app/itf/effect-handler.interface';
+import { InternalErrorHandlerService } from '../../common/internal-error-handler.service';
+import { MachinesTypes } from '../machines.actions';
 import { AddSensorHandlerService } from './handlers/add-sensor-handler.service';
 import { DeleteSensorHandlerService } from './handlers/delete-sensor-handler.service';
 import { GetMachinesHandlerService } from './handlers/get-machines-handler.service';
-import { GetUserProductsByDateRangeHandlerService } from './handlers/get-user-products-by-date-range-handler.service';
 import { UpdateSensorHandlerService } from './handlers/update-sensor-handler.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class UserProductsEffectsHandlerService implements EffectFactory {
+export class MachinesEffectsHandlerService implements EffectFactory {
   private actionHandlers: { [key: string]: Type<EffectHandler> } = {
-    [UserProductsActionType.GET_USER_PRODUCTS_BY_DATE_REQUEST]: GetMachinesHandlerService,
-    [UserProductsActionType.GET_USER_PRODUCTS_BY_DATE_RANGE_REQUEST]: GetUserProductsByDateRangeHandlerService,
-    [UserProductsActionType.ADD_USER_PRODUCT_REQUEST]: AddSensorHandlerService,
-    [UserProductsActionType.UPDATE_USER_PRODUCT_REQUEST]: UpdateSensorHandlerService,
-    [UserProductsActionType.DELETE_USER_PRODUCT_REQUEST]: DeleteSensorHandlerService,
+    [MachinesTypes.GET_MACHINES]: GetMachinesHandlerService,
+    [MachinesTypes.ADD_SENSOR_RECORD]: AddSensorHandlerService,
+    [MachinesTypes.UPDATE_SENSOR_RECORD]: UpdateSensorHandlerService,
+    [MachinesTypes.DELETE_SENSOR_RECORD]: DeleteSensorHandlerService,
   };
-  private internalErrorHandlerService: Type<EffectHandler> = InternalErrorHandlerService;
+  private internalErrorHandlerService: Type<EffectHandler> =
+    InternalErrorHandlerService;
 
   constructor(private injector: Injector) {}
 
